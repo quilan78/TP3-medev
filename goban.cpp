@@ -11,17 +11,17 @@ void goban::jouer(int x,int y)
 
 }
 
-goban( int _taille) {
+goban::goban( int _taille) {
   taille = _taille;
   joueur =0;
   capture[0]=0;
   capture[1]=0;
 
   // Initialisation du plateau
-  for( int i=0; i<taille, i++) {
+  for( int i=0; i<taille; i++) {
     vector<int> temp;
     plateau.push_back(temp);
-    for ( int u=0; u<taille, u++) {
+    for ( int u=0; u<taille; u++) {
       plateau[i].push_back(-1);
     }
   }
