@@ -15,7 +15,7 @@ private:
 
     std::vector< int[2] > checked;
 
-    bool detecterLibert�( int x, int y,); // true si + de 1 degr�, false si 0 degr�
+    bool detecterLiberte( int x, int y,); // true si + de 1 degr�, false si 0 degr�
 
     bool detecterSuicide( int x, int y ); // Regarde le tableau et renvoie true si il y a     un pion de la bonne couleur en x et y
 
