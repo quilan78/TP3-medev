@@ -1,6 +1,10 @@
 
 #include <vector>
 
+struct Int2 {
+    int i[2];
+};
+
 class goban{
 
 private:
@@ -11,13 +15,13 @@ private:
 
     int joueur; // noir 0, blanc 1
 
-    int[] capture[2]; // capture[0] captur� par les noirs, captu�
+    int capture[2]; // capture[0] captur� par les noirs, captu�
 
-    std::vector< int[2] > checked;
+    std::vector<Int2> checked;
 
 public:
 
-    bool detecterLiberte( int x, int y,); // true si + de 1 degr�, false si 0 degr�
+    bool detecterLiberte( int x, int y); // true si + de 1 degr�, false si 0 degr�
 
     bool detecterSuicide( int x, int y ); // Regarde le tableau et renvoie true si il y a     un pion de la bonne couleur en x et y
 

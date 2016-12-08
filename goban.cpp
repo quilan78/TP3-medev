@@ -14,7 +14,10 @@ void goban::jouer(int x,int y)
 bool goban::detecterLiberte( int x, int y ) {
   int couleur = plateau[x][y];
   bool liberte = false;
-  checked.push_back({x,y});
+  Int2 i;
+  i.i[0] = x;
+  i.i[1] = y;
+  checked.push_back(i);
   if ( x > 0) {
     if ( plateau[x-1][y] == -1 ) {
       liberte = true;
@@ -55,7 +58,7 @@ bool goban::detecterLiberte( int x, int y ) {
 bool goban::isNotChecked(int x, int y) {
   bool retour = true;
   for ( int i=0; i<checked.size(); i++) {
-    if ( checked[i][0] == x and checked[i][1] == y) {
+    if ( checked[i].i[0] == x and checked[i].i[1] == y) {
       retour = false;
     }
   }
@@ -68,30 +71,4 @@ bool goban::detecterSuicide( int x, int y ) {
     return true;
   else
     return false;
-}
-
-void goban::supprimerGroupe( int x, int y) {
-  int couleur = plateau[x][y];
-  plateau[x][y] = -1;
-  if ( x > 0) {
-    if ( plateau[x-1][y] == couleur) {
-      supprimerGroupe(x-1, y);
-    }
-  }
-  if ( y > 0) {
-    if ( plateau[x][y-1] == couleur) {
-      supprimerGroupe(x, y-1);
-    }
-  }
-  if ( x < taille-1) {
-    if ( plateau[x+1][y] == couleur) {
-      supprimerGroupe(x+1, y);
-    }
-  }
-  if ( y < taille-1) {
-    if ( plateau[x][y+1] == couleur ) {
-      supprimerGroupe(x, y+1);
-    }
-  }
-
 }
