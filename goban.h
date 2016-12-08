@@ -29,7 +29,7 @@ public:
 
     bool isNotChecked(int x, int y);
 
-    goban( int taille );
+    goban( int _taille );
 
     void jouer( int x, int y); // Sauvegarde du tableau, on fait le mouvement sur le tableau plateau, les v�rifs, si probl�me, on recharge la sauvegarde et on met un message d'erreur
 
