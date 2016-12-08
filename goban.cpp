@@ -56,15 +56,11 @@ void goban::ecriture()
     if (fichier)
     {
         for (int i=0;i<taille;i++)
-    }
-}
-
-void goban::afficher() {
-    for(int i = 0; i < plateau.size(); i++) {
-        for(int j = 0; j < plateau[i].size(); j++) {
-            std::cout << plateau[i][j] << " | ";
+        {
+            for(int j=0;j<taille;j++)
+            {
+                fichier<<plateau[i][j];
+            }
         }
-        std::cout << std::endl << std::endl;
     }
-    std::cout << "C'est au joueur " << ((joueur) ? "blanc" : "noir") << " de jouer." << std::endl << std::endl << std::endl;
 }
