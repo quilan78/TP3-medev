@@ -1,5 +1,6 @@
 
 #include <vector>
+#include <iostream>
 
 struct Int2 {
     int i[2];
