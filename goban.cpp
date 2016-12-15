@@ -74,3 +74,15 @@ void goban::afficher() {
 	}
 	std::cout << "C'est au joueur " << ((joueur) ? "blanc" : "noir") << " de jouer." << std::endl << std::endl << std::endl;
 }
+
+/*void savePlateau(std::vector<std::vector<int>> plateau,std::vector<std::vector<int>> save)
+{
+	for (int i=0;i<plateau.size();i++)
+	{
+		for (int j=0;j<plateau.size)
+	}
+}*/
+
+
+
+
