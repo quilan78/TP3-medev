@@ -13,6 +13,7 @@ void goban::jouer(int x,int y)
 	sauvegarder(save);
 
 	if ((x>=taille)||(y>=taille)){
+		int x2,y2;
 		cout<<"Hors plateau. Rejouez."<<endl;
 		cout<<"nouvelle valeur de x:"<<endl;
 		cin>>x2;
@@ -210,4 +211,27 @@ void goban::charger(vector<vector<int>> save)
 	}
 }
 
-
+void goban::supprimerGroupe( int x, int y) {
+	int couleur = plateau[x][y];
+	plateau[x][y] = -1;
+	if ( x > 0) {
+		if ( plateau[x-1][y] == couleur) {
+			supprimerGroupe(x-1, y);
+		}
+	}
+	if ( y > 0) {
+		if ( plateau[x][y-1] == couleur) {
+			supprimerGroupe(x, y-1);
+		}
+	}
+	if ( x < taille-1) {
+		if ( plateau[x+1][y] == couleur) {
+			supprimerGroupe(x+1, y);
+		}
+	}
+	if ( y < taille-1) {
+		if ( plateau[x][y+1] == couleur ) {
+			supprimerGroupe(x, y+1);
+		}
+	}
+}
