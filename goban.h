@@ -1,5 +1,6 @@
 
 #include <vector>
+#include <iostream>
 
 struct Int2 {
 	int i[2];
@@ -25,7 +26,7 @@ public:
 	void setTaille (int t){taille = t;}
 
 	void setJoueur (int j)
-	{ switch(j)
+	{ switch(j){
 		case 0:
 			joueur= 0;
 			break;
@@ -33,7 +34,8 @@ public:
 			joueur = 1;
 			break;
 		default:
-			cout<<"Valeur impossible. Indiquez joueur 0 ou 1"<<endl;
+			std::cout<<"Valeur impossible. Indiquez joueur 0 ou 1"<<std::endl;
+			}
 	}
 
 	//getters
@@ -41,6 +43,9 @@ public:
 	int getJoueur(){return joueur;}
 	std::vector<std::vector< int > > getPlateau(){return plateau;}
 	std::vector<Int2> getChecked() { return checked; }
+	int getCase(int x, int y){ return plateau[x][y];}
+	int getcapture1(){return capture[0];}
+	int getcapture2(){return capture[1];}
 
 
 	//méthodes
@@ -59,5 +64,11 @@ public:
 	void afficher ();
 
 	void ecriture();
+
+	bool lecture();
+
+	void sauvegarder(std::vector<std::vector<int>> save);
+
+	void charger(std::vector<std::vector<int>> save);
 
 };

@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1481791085 source:z:\medev\tp3-medev\goban.cpp
+	"goban.h"
+	<iostream>
+	<fstream>
+
+1481791734 z:\medev\tp3-medev\goban.h
+	<vector>
+	<iostream>
+
+1481786756 source:z:\medev\tp3-medev\main.cpp
+	"goban.h"
+

@@ -1,3 +1,5 @@
+
+
 #include "goban.h"
 #include <iostream>
 #include <fstream>
@@ -8,12 +10,11 @@ void goban::jouer(int x,int y)
 {
 	// On sauvegarde notre plateau dans un premier temps
 	vector<vector<int>> save;
-	save = plateau;
+	sauvegarder(save);
 
-	if (plateau[x][y] != -1) // Si la case n'est pas vide
-	{
+	if ((x>=taille)||(y>=taille)){
 		int x2,y2;
-		cout<<"Case d�j� occup�e,rejouez"<<endl;
+		cout<<"Hors plateau. Rejouez."<<endl;
 		cout<<"nouvelle valeur de x:"<<endl;
 		cin>>x2;
 		cout<<endl<<"nouvelle valeur de y:"<<endl;
@@ -21,22 +22,20 @@ void goban::jouer(int x,int y)
 		jouer(x2,y2);
 	}
 
-	else{
+	if (plateau[x][y] != -1) // Si la case n'est pas vide
+	{
+		int x2,y2;
+		cout<<"Case déjà occupée,rejouez"<<endl;
+		cout<<"nouvelle valeur de x:"<<endl;
+		cin>>x2;
+		cout<<endl<<"nouvelle valeur de y:"<<endl;
+		cin>>y2;
+		jouer(x2,y2);
+	}
 
-		plateau[x][y] = joueur;
-		for (int i=0;i<taille;i++)
+	if (detecterSuicide(x,y))
 		{
-			for(int j=0;j<taille;j++)
-			{
-				if (!detecterLiberte(i,j))
-				{
-						supprimerGroupe(i,j);
-				}
-			}
-		}
-		if (detecterSuicide(x,y))
-		{
-			plateau = save;
+			charger(save);
 			int x2,y2;
 			cout<<"Suicide interdit,rejouez"<<endl;
 			cout<<"nouvelle valeur de x:"<<endl;
@@ -45,7 +44,23 @@ void goban::jouer(int x,int y)
 			cin>>y2;
 			jouer(x2,y2);
 		}
+
+	else{
+
+		plateau[x][y] = joueur;
+		for (int i=0;i<taille;i++)
+		{
+			for(int j=0;j<taille;j++)
+			{
+				if ((plateau[i][j]!=-1)&&(!detecterLiberte(i,j)))
+				{
+						supprimerGroupe(i,j);
+				}
+			}
 		}
+		joueur +=1;
+		joueur = joueur%2;
+	}
 }
 
 void goban::ecriture()
@@ -80,10 +95,10 @@ goban::goban( int _taille) {
 	capture[1]=0;
 
 	// Initialisation du plateau
-	for( int i=0; i<taille, i++) {
+	for( int i=0; i<taille; i++) {
 		vector<int> temp;
 		plateau.push_back(temp);
-		for ( int u=0; u<taille, u++) {
+		for ( int u=0; u<taille; u++) {
 			plateau[i].push_back(-1);
 		}
 	}
@@ -151,6 +166,51 @@ bool goban::detecterSuicide( int x, int y ) {
 		return false;
 }
 
+bool goban::lecture()
+{
+	bool egalite = true;
+	int value;
+	ifstream fichier("historique.txt",ios::in);
+	if (fichier)
+	{
+		for (int i=0;i<taille;i++)
+		{
+			for (int j=0;j<taille;j++)
+			{
+				fichier>>value;
+				egalite = (egalite && (value==plateau[i][j]));
+			}
+		}
+	}
+	return egalite;
+}
+
+void goban::sauvegarder(vector<vector<int>> save)
+{
+	save.clear();
+	for( int i=0; i<taille; i++)
+	{
+	vector<int> temp;
+	save.push_back(temp);
+	for ( int u=0; u<taille; u++) {
+		save[i].push_back(plateau[i][u]);
+		}
+	}
+}
+
+void goban::charger(vector<vector<int>> save)
+{
+	plateau.clear();
+	for( int i=0; i<taille; i++)
+	{
+	vector<int> temp;
+	plateau.push_back(temp);
+	for ( int u=0; u<taille; u++) {
+		plateau[i].push_back(save[i][u]);
+		}
+	}
+}
+
 void goban::supprimerGroupe( int x, int y) {
 	int couleur = plateau[x][y];
 	plateau[x][y] = -1;
@@ -176,6 +236,4 @@ void goban::supprimerGroupe( int x, int y) {
 			}
 		}
 	}
-
-
 }

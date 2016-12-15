@@ -146,3 +146,5 @@ TEST(ObjetTestChecked, testChecked) {
 	EXPECT_EQ(myGoban->isNotChecked()[5][5], -1);
 	EXPECT_EQ(myGoban->isNotChecked()[5][6], -1);
 }
+
+
