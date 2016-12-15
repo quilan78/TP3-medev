@@ -12,12 +12,18 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
+					<Add option="-std=gnu++11" />
 					<Add option="-g" />
+					<Add directory="%GTEST%/include" />
+					<Add directory="Z:/MEDEV/TP3-4/pthreads/include" />
 				</Compiler>
 				<Linker>
+					<Add option="-std=gnu++11" />
 					<Add library="..\test\Debug\gtest.lib" />
 					<Add library="..\test\Debug\gtest_main.lib" />
+					<Add library="..\pthreads\lib\x64\pthreadVC2.lib" />
+					<Add directory="%GTEST%/include" />
+					<Add directory="Z:/MEDEV/TP3-4/pthreads/include" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -39,6 +45,7 @@
 		<Unit filename="goban.cpp" />
 		<Unit filename="goban.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main_test.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

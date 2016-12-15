@@ -1,5 +1,3 @@
-
-
 #include "goban.h"
 #include <iostream>
 #include <fstream>
@@ -115,7 +113,7 @@ bool goban::detecterLiberte( int x, int y ) {
 		if ( plateau[x-1][y] == -1 ) {
 			liberte = true;
 		}
-		else if ( plateau[x-1][y] == couleur and isNotChecked(x-1,y)) {
+		else if ( plateau[x-1][y] == couleur && isNotChecked(x-1,y)) {
 			liberte = liberte||detecterLiberte(x-1, y);
 		}
 	}
@@ -123,7 +121,7 @@ bool goban::detecterLiberte( int x, int y ) {
 		if ( plateau[x][y-1] == -1 ) {
 			liberte = true;
 		}
-		else if ( plateau[x][y-1] == couleur and isNotChecked(x,y-1)) {
+		else if ( plateau[x][y-1] == couleur && isNotChecked(x,y-1)) {
 			liberte = liberte||detecterLiberte(x, y-1);
 		}
 	}
@@ -131,7 +129,7 @@ bool goban::detecterLiberte( int x, int y ) {
 		if ( plateau[x+1][y] == -1 ) {
 			liberte = true;
 		}
-		else if ( plateau[x+1][y] == couleur and isNotChecked(x+1,y)) {
+		else if ( plateau[x+1][y] == couleur && isNotChecked(x+1,y)) {
 			liberte = liberte||detecterLiberte(x+1, y);
 		}
 	}
@@ -139,7 +137,7 @@ bool goban::detecterLiberte( int x, int y ) {
 		if ( plateau[x][y+1] == -1 ) {
 			liberte = true;
 		}
-		else if ( plateau[x][y+1] == couleur and isNotChecked(x,y+1)) {
+		else if ( plateau[x][y+1] == couleur && isNotChecked(x,y+1)) {
 			liberte = liberte||detecterLiberte(x, y+1);
 		}
 	}
@@ -151,7 +149,7 @@ bool goban::detecterLiberte( int x, int y ) {
 bool goban::isNotChecked(int x, int y) {
 	bool retour = true;
 	for ( int i=0; i<checked.size(); i++) {
-		if ( checked[i].i[0] == x and checked[i].i[1] == y) {
+		if ( checked[i].i[0] == x && checked[i].i[1] == y) {
 			retour = false;
 		}
 	}

@@ -1,3 +1,4 @@
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -44,8 +45,8 @@ public:
 	std::vector<std::vector< int > > getPlateau(){return plateau;}
 	std::vector<Int2> getChecked() { return checked; }
 	int getCase(int x, int y){ return plateau[x][y];}
-	int getcapture1(){return capture[0];}
-	int getcapture2(){return capture[1];}
+	int getCapture1(){return capture[0];}
+	int getCapture2(){return capture[1];}
 
 
 	//méthodes
