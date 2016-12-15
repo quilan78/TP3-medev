@@ -1,5 +1,3 @@
-
-
 #include "goban.h"
 #include <iostream>
 #include <fstream>
@@ -153,14 +151,28 @@ bool goban::detecterSuicide( int x, int y ) {
 		return false;
 }
 
-/*void savePlateau(std::vector<std::vector<int>> plateau,std::vector<std::vector<int>> save)
-{
-	for (int i=0;i<plateau.size();i++)
-	{
-		for (int j=0;j<plateau.size)
+void goban::supprimerGroupe( int x, int y) {
+	int couleur = plateau[x][y];
+	plateau[x][y] = -1;
+	if ( x > 0) {
+		if ( plateau[x-1][y] == couleur) {
+			supprimerGroupe(x-1, y);
+		}
 	}
-}*/
+	if ( y > 0) {
+		if ( plateau[x][y-1] == couleur) {
+			supprimerGroupe(x, y-1);
+		}
+	}
+	if ( x < taille-1) {
+		if ( plateau[x+1][y] == couleur) {
+			supprimerGroupe(x+1, y);
+		}
+	}
+	if ( y < taille-1) {
+		if ( plateau[x][y+1] == couleur ) {
+			supprimerGroupe(x, y+1);
+		}
+	}
 
-
-
-
+}
