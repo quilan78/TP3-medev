@@ -2,39 +2,60 @@
 #include <vector>
 
 struct Int2 {
-    int i[2];
+	int i[2];
 };
 
 class goban{
 
 private:
 
-    int taille; //taille du plateau
+	int taille; //taille du plateau
 
-    std::vector<std::vector< int > > plateau; // vide -1, noir 0, blanc 1
+	std::vector<std::vector< int > > plateau; // vide -1, noir 0, blanc 1
 
-    int joueur; // noir 0, blanc 1
+	int joueur; // noir 0, blanc 1
 
-    int capture[2]; // capture[0] captur� par les noirs, captu�
+	int capture[2]; // capture[0] captur� par les noirs, captu�
 
-    std::vector<Int2> checked;
+	std::vector<Int2> checked;
 
 public:
 
-    bool detecterLiberte( int x, int y); // true si + de 1 degr�, false si 0 degr�
+	//setters
+	void setTaille (int t){taille = t;}
 
-    bool detecterSuicide( int x, int y ); // Regarde le tableau et renvoie true si il y a     un pion de la bonne couleur en x et y
+	void setJoueur (int j)
+	{ switch(j)
+		case 0:
+			joueur= 0;
+			break;
+		case 1:
+			joueur = 1;
+			break;
+		default:
+			cout<<"Valeur impossible. Indiquez joueur 0 ou 1"<<endl;
+	}
 
-    void supprimerGroupe( int x, int y ); // supprime le groupe qui a un pion en x et ypublic :
+	//getters
+	int getTaille(){return taille;}
 
-    bool isNotChecked(int x, int y);
+	int getJoueur(){return joueur;}
 
-    goban( int _taille );
+	//méthodes
+	bool detecterLiberte( int x, int y); // true si + de 1 degr�, false si 0 degr�
 
-    void jouer( int x, int y); // Sauvegarde du tableau, on fait le mouvement sur le tableau plateau, les v�rifs, si probl�me, on recharge la sauvegarde et on met un message d'erreur
+	bool detecterSuicide( int x, int y ); // Regarde le tableau et renvoie true si il y a     un pion de la bonne couleur en x et y
 
-    void afficher ();
+	void supprimerGroupe( int x, int y ); // supprime le groupe qui a un pion en x et ypublic :
 
-    void ecriture();
+	bool isNotChecked(int x, int y);
+
+	goban( int _taille );
+
+	void jouer( int x, int y); // Sauvegarde du tableau, on fait le mouvement sur le tableau plateau, les v�rifs, si probl�me, on recharge la sauvegarde et on met un message d'erreur
+
+	void afficher ();
+
+	void ecriture();
 
 };
