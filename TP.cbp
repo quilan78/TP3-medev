@@ -36,6 +36,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="goban.cpp" />
+		<Unit filename="goban.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
