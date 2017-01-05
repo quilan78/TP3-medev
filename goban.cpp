@@ -73,19 +73,20 @@ void goban::afficher() {
 }
 
 goban::goban( int _taille) {
+	//Constructeur du goban
 
-	taille = _taille;
+	taille = _taille; // Initialise la taille du plateau
 
-	joueur =0;
+	joueur =0; // Donne la main au joueur 0
 
 	//Scores à 0
-	capture[0]=0;
-	capture[1]=0;
+	capture[0]=0; // Initialise le nombre de pièce capturé pour le joueur blanc
+	capture[1]=0; // Initialise le nombre de pièce capturé pour le joueur noir
 
 	// Initialisation du plateau
 	for( int i=0; i<taille; i++) {
 		vector<int> temp;
-		plateau.push_back(temp);
+		plateau.push_back(temp); // Création en mémoire d'un vecteur pour chaque ligne
 		for ( int u=0; u<taille; u++) {
 			plateau[i].push_back(-1); //Toutes les cases sont vides
 		}
@@ -93,42 +94,43 @@ goban::goban( int _taille) {
 }
 
 bool goban::detecterLiberte( int x, int y ) {
-	int couleur = plateau[x][y];
-	bool liberte = false;
-	Int2 i;
+	//Renvoie true si la pièce a au moins un degré de liberté
+	int couleur = plateau[x][y]; // La couleur du pion étudié
+	bool liberte = false; // On initialise à false le degré de liberté
+	Int2 i; // Création d'un entier 2 stockant les coordonnées du point courant
 	i.i[0] = x;
 	i.i[1] = y;
-	checked.push_back(i);
-	if ( x > 0) {
-		if ( plateau[x-1][y] == -1 ) {
+	checked.push_back(i);  // On ajoute le point courant aux points à ne pas re-visiter
+	if ( x > 0) { // Si il existe une case en haut
+		if ( plateau[x-1][y] == -1 ) { // Si la case est vide il y a un point de liberte
 			liberte = true;
 		}
-		else if ( plateau[x-1][y] == couleur && isNotChecked(x-1,y)) {
-			liberte = liberte||detecterLiberte(x-1, y);
+		else if ( plateau[x-1][y] == couleur && isNotChecked(x-1,y)) { // Si la case est occupé par un pion de même couleur
+			liberte = liberte||detecterLiberte(x-1, y); // On regarde si le pion adjacent a au moins un degré de liberté
 		}
 	}
-	if ( y > 0) {
-		if ( plateau[x][y-1] == -1 ) {
+	if ( y > 0) {// Si il existe une case a gauche
+		if ( plateau[x][y-1] == -1 ) {// Si la case est vide il y a un point de liberte
 			liberte = true;
 		}
-		else if ( plateau[x][y-1] == couleur && isNotChecked(x,y-1)) {
-			liberte = liberte||detecterLiberte(x, y-1);
+		else if ( plateau[x][y-1] == couleur && isNotChecked(x,y-1)) {// Si la case est occupé par un pion de même couleur
+			liberte = liberte||detecterLiberte(x, y-1); // On regarde si le pion adjacent a au moins un degré de liberté
 		}
 	}
-	if ( x < taille-1) {
-		if ( plateau[x+1][y] == -1 ) {
+	if ( x < taille-1) {// Si il existe une case en bas
+		if ( plateau[x+1][y] == -1 ) {// Si la case est vide il y a un point de liberte
 			liberte = true;
 		}
-		else if ( plateau[x+1][y] == couleur && isNotChecked(x+1,y)) {
-			liberte = liberte||detecterLiberte(x+1, y);
+		else if ( plateau[x+1][y] == couleur && isNotChecked(x+1,y)) {// Si la case est occupé par un pion de même couleur
+			liberte = liberte||detecterLiberte(x+1, y); // On regarde si le pion adjacent a au moins un degré de liberté
 		}
 	}
-	if ( y < taille-1) {
-		if ( plateau[x][y+1] == -1 ) {
+	if ( y < taille-1) {// Si il existe une case à droite
+		if ( plateau[x][y+1] == -1 ) {// Si la case est vide il y a un point de liberte
 			liberte = true;
 		}
-		else if ( plateau[x][y+1] == couleur && isNotChecked(x,y+1)) {
-			liberte = liberte||detecterLiberte(x, y+1);
+		else if ( plateau[x][y+1] == couleur && isNotChecked(x,y+1)) {// Si la case est occupé par un pion de même couleur
+			liberte = liberte||detecterLiberte(x, y+1); // On regarde si le pion adjacent a au moins un degré de liberté
 		}
 	}
 

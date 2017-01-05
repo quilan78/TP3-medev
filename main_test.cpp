@@ -214,3 +214,4 @@ TEST (TestJouer,TestSuicide){
     EXPECT_EQ(myGoban->getCase(1,1),-1);
     EXPECT_EQ(myGoban->getJoueur(),1);
 }
+
