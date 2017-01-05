@@ -12,23 +12,12 @@ void goban::jouer(int x,int y)
 
 	if ((x>=taille)||(y>=taille)||(x<0)||(y<0)){
 		int x2,y2;
-		cout<<x<<" "<<y<<endl;
 		cout<<"Hors plateau. Rejouez."<<endl;
-		cout<<"nouvelle valeur de x:"<<endl;
-		cin>>x2;
-		cout<<endl<<"nouvelle valeur de y:"<<endl;
-		cin>>y2;
-		jouer(x2,y2);
 	}
 	else if (plateau[x][y] != -1) // Si la case n'est pas vide
 	{
 		int x2,y2;
 		cout<<"Case déjà occupée,rejouez"<<endl;
-		cout<<"nouvelle valeur de x:"<<endl;
-		cin>>x2;
-		cout<<endl<<"nouvelle valeur de y:"<<endl;
-		cin>>y2;
-		jouer(x2,y2);
 	}
 	else{
 		plateau[x][y] = joueur;
@@ -48,11 +37,6 @@ void goban::jouer(int x,int y)
 			charger(save);
 			int x2,y2;
 			cout<<"Suicide interdit,rejouez"<<endl;
-			cout<<"nouvelle valeur de x:"<<endl;
-			cin>>x2;
-			cout<<endl<<"nouvelle valeur de y:"<<endl;
-			cin>>y2;
-			jouer(x2,y2);
 		} else {
 			joueur +=1;
 			joueur = joueur%2;

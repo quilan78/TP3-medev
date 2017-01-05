@@ -171,7 +171,7 @@ TEST (TestJouer,CaseOccupee){
     myGoban->jouer(2,3);
     myGoban->jouer(2,3);
     EXPECT_EQ(myGoban->getCase(2,3),0);
-    EXPECT_EQ(myGoban->getJoueur(),0);
+    EXPECT_EQ(myGoban->getJoueur(),1);
 }
 
 TEST (TestJouer,SupprimerGroupe){
@@ -195,13 +195,10 @@ TEST (TestJouer,HorsPlateau){
     for (int i=0;i<myGoban->getTaille();i++){
         for (int j=0;j<myGoban->getTaille();j++)
         {
-			if ( i == 0 && j == 0 ) {
-				EXPECT_EQ(myGoban->getCase(i,j),0);
-			}else {
-				EXPECT_EQ(myGoban->getCase(i,j),-1);
-			}
+			EXPECT_EQ(myGoban->getCase(i,j),-1);
         }
     }
+    EXPECT_EQ(myGoban->getJoueur(),0);
 }
 
 TEST (TestJouer,TestSuicide){
@@ -215,5 +212,5 @@ TEST (TestJouer,TestSuicide){
     myGoban->jouer(0,1);
     myGoban->jouer(1,1);
     EXPECT_EQ(myGoban->getCase(1,1),-1);
-    EXPECT_EQ(myGoban->getJoueur(),0);
+    EXPECT_EQ(myGoban->getJoueur(),1);
 }
