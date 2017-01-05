@@ -8,10 +8,11 @@ void goban::jouer(int x,int y)
 {
 	// On sauvegarde notre plateau dans un premier temps
 	vector<vector<int>> save;
-	sauvegarder(save);
+	sauvegarder(&save);
 
-	if ((x>=taille)||(y>=taille)){
+	if ((x>=taille)||(y>=taille)||(x<0)||(y<0)){
 		int x2,y2;
+		cout<<x<<" "<<y<<endl;
 		cout<<"Hors plateau. Rejouez."<<endl;
 		cout<<"nouvelle valeur de x:"<<endl;
 		cin>>x2;
@@ -19,8 +20,7 @@ void goban::jouer(int x,int y)
 		cin>>y2;
 		jouer(x2,y2);
 	}
-
-	if (plateau[x][y] != -1) // Si la case n'est pas vide
+	else if (plateau[x][y] != -1) // Si la case n'est pas vide
 	{
 		int x2,y2;
 		cout<<"Case déjà occupée,rejouez"<<endl;
@@ -30,21 +30,7 @@ void goban::jouer(int x,int y)
 		cin>>y2;
 		jouer(x2,y2);
 	}
-
-	if (detecterSuicide(x,y))
-		{
-			charger(save);
-			int x2,y2;
-			cout<<"Suicide interdit,rejouez"<<endl;
-			cout<<"nouvelle valeur de x:"<<endl;
-			cin>>x2;
-			cout<<endl<<"nouvelle valeur de y:"<<endl;
-			cin>>y2;
-			jouer(x2,y2);
-		}
-
 	else{
-
 		plateau[x][y] = joueur;
 		for (int i=0;i<taille;i++)
 		{
@@ -56,8 +42,22 @@ void goban::jouer(int x,int y)
 				}
 			}
 		}
-		joueur +=1;
-		joueur = joueur%2;
+		if (detecterSuicide(x,y))
+		{
+
+			charger(save);
+			int x2,y2;
+			cout<<"Suicide interdit,rejouez"<<endl;
+			cout<<"nouvelle valeur de x:"<<endl;
+			cin>>x2;
+			cout<<endl<<"nouvelle valeur de y:"<<endl;
+			cin>>y2;
+			jouer(x2,y2);
+		} else {
+			joueur +=1;
+			joueur = joueur%2;
+		}
+
 	}
 }
 
@@ -183,15 +183,15 @@ bool goban::lecture()
 	return egalite;
 }
 
-void goban::sauvegarder(vector<vector<int>> save)
+void goban::sauvegarder(vector<vector<int>> *save)
 {
-	save.clear();
+	save->clear();
 	for( int i=0; i<taille; i++)
 	{
 	vector<int> temp;
-	save.push_back(temp);
+	save->push_back(temp);
 	for ( int u=0; u<taille; u++) {
-		save[i].push_back(plateau[i][u]);
+		save->at(i).push_back(plateau[i][u]);
 		}
 	}
 }
@@ -199,12 +199,11 @@ void goban::sauvegarder(vector<vector<int>> save)
 void goban::charger(vector<vector<int>> save)
 {
 	plateau.clear();
-	for( int i=0; i<taille; i++)
-	{
-	vector<int> temp;
-	plateau.push_back(temp);
-	for ( int u=0; u<taille; u++) {
-		plateau[i].push_back(save[i][u]);
+	for( int i=0; i<taille; i++){
+		vector<int> temp;
+		plateau.push_back(temp);
+		for ( int u=0; u<taille; u++) {
+			plateau[i].push_back(save[i][u]);
 		}
 	}
 }

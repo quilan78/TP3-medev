@@ -47,7 +47,8 @@ public:
 	int getCase(int x, int y){ return plateau[x][y];}
 	int getCapture1(){return capture[0];}
 	int getCapture2(){return capture[1];}
-
+	void setCase(int x, int y, int value) { plateau[x][y] = value;}
+	void pushBackChecked( Int2 value ) { checked.push_back(value);}
 
 	//méthodes
 	bool detecterLiberte( int x, int y); // true si + de 1 degré, false si 0 degré
@@ -68,7 +69,7 @@ public:
 
 	bool lecture();
 
-	void sauvegarder(std::vector<std::vector<int>> save);
+	void sauvegarder(std::vector<std::vector<int>> *save);
 
 	void charger(std::vector<std::vector<int>> save);
 
