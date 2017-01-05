@@ -47,7 +47,8 @@ void goban::jouer(int x,int y)
 
 void goban::ecriture()
 {
-	ofstream fichier("historique.txt",ios::out | ios::app);
+    //on va écrire la configuratoin actuelle du plateau dans un fichier .txt de sauvegarde
+	ofstream fichier("historique.txt",ios::out | ios::app); // On ouvre le fichier en écriture sans en efacer le contenu
 	if (fichier)
 	{
 		for (int i=0;i<taille;i++)
@@ -61,6 +62,7 @@ void goban::ecriture()
 }
 
 void goban::afficher() {
+    // On affiche le plateau dans la table de commande
 	for(int i = 0; i < plateau.size(); i++) {
 		for(int j = 0; j < plateau[i].size(); j++) {
 			std::cout << plateau[i][j] << " | ";
@@ -71,8 +73,12 @@ void goban::afficher() {
 }
 
 goban::goban( int _taille) {
+
 	taille = _taille;
+
 	joueur =0;
+
+	//Scores à 0
 	capture[0]=0;
 	capture[1]=0;
 
@@ -81,7 +87,7 @@ goban::goban( int _taille) {
 		vector<int> temp;
 		plateau.push_back(temp);
 		for ( int u=0; u<taille; u++) {
-			plateau[i].push_back(-1);
+			plateau[i].push_back(-1); //Toutes les cases sont vides
 		}
 	}
 }
@@ -131,6 +137,7 @@ bool goban::detecterLiberte( int x, int y ) {
 }
 
 bool goban::isNotChecked(int x, int y) {
+    // On vérifie que l'élément ed coordonées (x,y) n'a pas déjà été vérifié
 	bool retour = true;
 	for ( int i=0; i<checked.size(); i++) {
 		if ( checked[i].i[0] == x && checked[i].i[1] == y) {
@@ -142,6 +149,7 @@ bool goban::isNotChecked(int x, int y) {
 }
 
 bool goban::detecterSuicide( int x, int y ) {
+    // On retourne true si la case est vide, false sinon
 	if ( plateau[x][y] == -1)
 		return true;
 	else
@@ -150,11 +158,13 @@ bool goban::detecterSuicide( int x, int y ) {
 
 bool goban::lecture()
 {
+     // On retourne true si on est revenu à une configuration précédente false sinon
 	bool egalite = true;
 	int value;
-	ifstream fichier("historique.txt",ios::in);
+	ifstream fichier("historique.txt",ios::in); // On ouvre en lecture le fichier texte où l'on a stocké les versions précédentes
 	if (fichier)
 	{
+	    // On va vérifier pour chaque case si cela correspond à la configuration actuelle
 		for (int i=0;i<taille;i++)
 		{
 			for (int j=0;j<taille;j++)
@@ -169,11 +179,12 @@ bool goban::lecture()
 
 void goban::sauvegarder(vector<vector<int>> *save)
 {
-	save->clear();
+	save->clear();// On s'assure que le plateau qui sert à sauvegarder est vide
 	for( int i=0; i<taille; i++)
 	{
 	vector<int> temp;
 	save->push_back(temp);
+	//On va parcourir le tableau de sauvegarde par lignes qu'on va remplir avec les valeurs voulues
 	for ( int u=0; u<taille; u++) {
 		save->at(i).push_back(plateau[i][u]);
 		}
@@ -182,10 +193,11 @@ void goban::sauvegarder(vector<vector<int>> *save)
 
 void goban::charger(vector<vector<int>> save)
 {
-	plateau.clear();
+	plateau.clear(); //On reinitialise notre plateau
 	for( int i=0; i<taille; i++){
 		vector<int> temp;
 		plateau.push_back(temp);
+		//On va parcourir le tableau à modifier par lignes qu'on va remplir avec les valeurs voulues
 		for ( int u=0; u<taille; u++) {
 			plateau[i].push_back(save[i][u]);
 		}
@@ -193,9 +205,11 @@ void goban::charger(vector<vector<int>> save)
 }
 
 void goban::supprimerGroupe( int x, int y) {
-	int couleur = plateau[x][y];
+	int couleur = plateau[x][y]; //On note le joueur à qui appartient le pion à supprimer
 	plateau[x][y] = -1;
-	if ( couleur != -1 ) {
+	if ( couleur != -1 ) { //On vérifie que cela correspond à un joueur et pas à une case vide
+            // Puis on supprime tous les pions de même couleur adjacents qui sont donc dans le même groupe
+            // On vérifie si on est ou non sur les bords
 		if ( x > 0) {
 			if ( plateau[x-1][y] == couleur) {
 				supprimerGroupe(x-1, y);
