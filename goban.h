@@ -11,7 +11,7 @@ class goban{
 
 private:
 
-	int taille; //taille du plateau
+	int taille; ///<taille du plateau
 
 	std::vector<std::vector< int > > plateau; // vide -1, noir 0, blanc 1
 
@@ -24,7 +24,8 @@ private:
 public:
 
 	//setters
-	void setTaille (int t){taille = t;}
+	/*! Set la taille de la carte*/
+	void setTaille (int t){	taille = t;}
 
 	void setJoueur (int j)
 	{ switch(j){
